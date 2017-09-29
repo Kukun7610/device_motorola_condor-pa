@@ -12,21 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Check for target product
+ifeq (pa_condor,$(TARGET_PRODUCT))
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+ 
+# Inherit AOSP device configuration
 $(call inherit-product, device/motorola/condor/full_condor.mk)
 
 # Inherit some common AOSPA stuff.
-$(call inherit-product, vendor/pa/common.mk)
+include vendor/pa/main.mk
+include device/qcom/common/common.mk
 
-# Bootanimation
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
+
+# Include PA common configuration
+TARGET_BOOT_ANIMATION_RES := 720
 
 ## Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := condor
 PRODUCT_NAME := pa_condor
-PRODUCT_RELEASE_NAME := MOTO E
-PRODUCT_MODEL := XT1025
-
-#Build Type
-EXTENDED_BUILD_TYPE=UNOFFICIAL
+PRODUCT_BRAND := Motorola
+PRODUCT_MANUFACTURER := Motorola
+PRODUCT_RELEASE_NAME := condor
 
 
+
+
+endif
